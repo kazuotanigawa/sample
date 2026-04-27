@@ -1,25 +1,648 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>すみれ訪問看護ステーション | あなたの暮らしに、寄り添うケアを</title>
+<style>
+  :root {
+    --primary: #4a90c8;
+    --primary-dark: #2e6fa3;
+    --primary-light: #e8f2fa;
+    --accent: #7cc4d4;
+    --text: #2c3e50;
+    --text-light: #6b7c8e;
+    --bg: #ffffff;
+    --bg-soft: #f7fafc;
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Yu Gothic", sans-serif;
+    line-height: 1.8;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(74, 144, 200, 0.1);
+    z-index: 100;
+  }
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    letter-spacing: 0.05em;
+  }
+  .logo span {
+    color: var(--accent);
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 28px;
+  }
+  nav a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  nav a:hover {
+    color: var(--primary);
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #f0f7fc 0%, #e8f2fa 50%, #f5fbfd 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 120px 24px 80px;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: -150px;
+    right: -150px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(124, 196, 212, 0.2), transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    bottom: -200px;
+    left: -200px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(74, 144, 200, 0.15), transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 60px;
+    align-items: center;
+    width: 100%;
+  }
+  .hero-text .tag {
+    display: inline-block;
+    padding: 6px 16px;
+    background: rgba(74, 144, 200, 0.1);
+    color: var(--primary-dark);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+    letter-spacing: 0.05em;
+  }
+  .hero-text h1 {
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 24px;
+    color: var(--text);
+    letter-spacing: 0.02em;
+  }
+  .hero-text h1 em {
+    font-style: normal;
+    color: var(--primary);
+    background: linear-gradient(180deg, transparent 65%, rgba(124, 196, 212, 0.3) 65%);
+  }
+  .hero-text p {
+    font-size: 1.05rem;
+    color: var(--text-light);
+    margin-bottom: 36px;
+    max-width: 480px;
+  }
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 32px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(74, 144, 200, 0.3);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(74, 144, 200, 0.4);
+  }
+  .btn-outline {
+    background: #fff;
+    color: var(--primary-dark);
+    border: 2px solid var(--primary);
+  }
+  .btn-outline:hover {
+    background: var(--primary-light);
+    transform: translateY(-2px);
+  }
+  .hero-image {
+    position: relative;
+  }
+  .hero-image .img-card {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background: linear-gradient(135deg, #c8e0f0 0%, #a6cee5 50%, #7cc4d4 100%);
+    border-radius: 24px;
+    box-shadow: 0 30px 60px rgba(74, 144, 200, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-image .img-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&q=80") center/cover;
+    opacity: 0.85;
+  }
+  .floating-badge {
+    position: absolute;
+    background: #fff;
+    padding: 16px 20px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .floating-badge.b1 {
+    top: 30px;
+    left: -20px;
+  }
+  .floating-badge.b2 {
+    bottom: 30px;
+    right: -20px;
+  }
+  .floating-badge .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #2ecc71;
+    box-shadow: 0 0 0 4px rgba(46, 204, 113, 0.2);
+  }
+  .floating-badge .label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  /* Section Common */
+  section.content {
+    padding: 100px 24px;
+  }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-head {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .section-head .label {
+    color: var(--primary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .section-head h2 {
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+  .section-head p {
+    color: var(--text-light);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Services */
+  .services {
+    background: var(--bg-soft);
+  }
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .service-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 32px;
+    border: 1px solid rgba(74, 144, 200, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(74, 144, 200, 0.15);
+  }
+  .service-card .num {
+    font-size: 0.85rem;
+    color: var(--primary);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+  }
+  .service-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+  .service-card p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+  }
+
+  /* Features */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+  }
+  .feature-card {
+    text-align: center;
+    padding: 32px 24px;
+  }
+  .feature-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 24px;
+    background: linear-gradient(135deg, var(--primary-light), #fff);
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    box-shadow: 0 10px 30px rgba(74, 144, 200, 0.15);
+  }
+  .feature-icon svg {
+    width: 40px;
+    height: 40px;
+  }
+  .feature-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+  .feature-card p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+  }
+
+  /* CTA */
+  .cta {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: #fff;
+    text-align: center;
+    border-radius: 24px;
+    padding: 60px 32px;
+    margin: 0 24px 100px;
+    max-width: 1052px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255,255,255,0.1), transparent 70%);
+    border-radius: 50%;
+  }
+  .cta h2 {
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .cta p {
+    margin-bottom: 32px;
+    opacity: 0.95;
+    position: relative;
+  }
+  .cta .btn {
+    background: #fff;
+    color: var(--primary-dark);
+    position: relative;
+  }
+  .cta .btn:hover {
+    background: var(--primary-light);
+  }
+
+  /* Footer */
+  footer {
+    background: #2c3e50;
+    color: #cbd5e0;
+    padding: 50px 24px 24px;
+  }
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 30px;
+  }
+  footer h4 {
+    color: #fff;
+    margin-bottom: 16px;
+    font-size: 1rem;
+  }
+  footer p, footer li {
+    font-size: 0.9rem;
+    line-height: 1.8;
+  }
+  footer ul {
+    list-style: none;
+  }
+  footer a {
+    color: #cbd5e0;
+    text-decoration: none;
+  }
+  footer a:hover {
+    color: #fff;
+  }
+  .copyright {
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 20px;
+    font-size: 0.85rem;
+    color: #8898a8;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    nav ul {
+      gap: 16px;
+    }
+    nav a {
+      font-size: 0.85rem;
+    }
+    .hero {
+      padding: 100px 20px 60px;
+      min-height: auto;
+    }
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      text-align: center;
+    }
+    .hero-text p {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero-buttons {
+      justify-content: center;
+    }
+    .hero-image {
+      max-width: 320px;
+      margin: 0 auto;
+    }
+    .floating-badge.b1 {
+      left: -10px;
+      padding: 12px 14px;
+    }
+    .floating-badge.b2 {
+      right: -10px;
+      padding: 12px 14px;
+    }
+    .floating-badge .label {
+      font-size: 0.75rem;
+    }
+    section.content {
+      padding: 60px 20px;
+    }
+    .section-head {
+      margin-bottom: 40px;
+    }
+    .footer-inner {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      text-align: center;
+    }
+    .cta {
+      padding: 40px 24px;
+      margin: 0 16px 60px;
+    }
+  }
+  @media (max-width: 480px) {
+    .header-inner {
+      padding: 12px 16px;
+    }
+    .logo {
+      font-size: 1rem;
+    }
+    nav ul {
+      gap: 12px;
+    }
+    .btn {
+      padding: 12px 24px;
+      font-size: 0.95rem;
+    }
+  }
+</style>
+</head>
 <body>
 
-<h1>俺のホームページ🔥</h1>
+<header>
+  <div class="header-inner">
+    <div class="logo">すみれ<span>訪問看護</span></div>
+    <nav>
+      <ul>
+        <li><a href="#services">サービス</a></li>
+        <li><a href="#features">特徴</a></li>
+        <li><a href="#contact">お問い合わせ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-<section>
-  <h2>自己紹介</h2>
-  <p>はじめまして、Kazuo Tanigawaです。</p>
-  <p>はじめて作ったホームページです。</p>
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <span class="tag">神戸市・訪問看護ステーション</span>
+      <h1>あなたの暮らしに、<br><em>寄り添うケア</em>を。</h1>
+      <p>住み慣れた我が家で、安心して過ごせる毎日を。経験豊富な看護師・リハビリ専門職が、ご自宅まで訪問しサポートいたします。</p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn btn-primary">無料で相談する →</a>
+        <a href="#services" class="btn btn-outline">サービスを見る</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="img-card"></div>
+      <div class="floating-badge b1">
+        <span class="dot"></span>
+        <span class="label">24時間対応</span>
+      </div>
+      <div class="floating-badge b2">
+        <span class="dot"></span>
+        <span class="label">ご相談無料</span>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section>
-  <h2>できること</h2>
-  <ul>
-    <li>HTML</li>
-    <li>CSS</li>
-    <li>JavaScript</li>
-  </ul>
+<!-- Services -->
+<section class="content services" id="services">
+  <div class="container">
+    <div class="section-head">
+      <span class="label">SERVICES</span>
+      <h2>提供サービス</h2>
+      <p>看護・リハビリ・介護をトータルでサポート。一人ひとりに合わせた最適なケアをご提案します。</p>
+    </div>
+    <div class="service-grid">
+      <div class="service-card">
+        <div class="num">01</div>
+        <h3>訪問看護</h3>
+        <p>主治医の指示のもと、健康状態の観察やお薬の管理、医療処置などを行います。</p>
+      </div>
+      <div class="service-card">
+        <div class="num">02</div>
+        <h3>訪問リハビリ</h3>
+        <p>理学療法士・作業療法士が、ご自宅でのリハビリを通じて生活機能の回復を支援します。</p>
+      </div>
+      <div class="service-card">
+        <div class="num">03</div>
+        <h3>ターミナルケア</h3>
+        <p>ご本人とご家族に寄り添い、住み慣れた場所で穏やかに過ごせるようお手伝いします。</p>
+      </div>
+      <div class="service-card">
+        <div class="num">04</div>
+        <h3>ご家族のサポート</h3>
+        <p>介護に関するご相談やアドバイスを通じて、ご家族の負担軽減もサポートします。</p>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section>
-  <h2>お問い合わせ</h2>
-  <p>メール: example@gmail.com</p>
+<!-- Features -->
+<section class="content" id="features">
+  <div class="container">
+    <div class="section-head">
+      <span class="label">FEATURES</span>
+      <h2>選ばれる3つの理由</h2>
+      <p>地域に根ざした訪問看護ステーションとして、確かなケアをお届けします。</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </div>
+        <h3>心に寄り添うケア</h3>
+        <p>利用者さまとご家族の想いを大切に、一人ひとりに合わせた丁寧なケアを心がけています。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <h3>24時間365日対応</h3>
+        <p>緊急時もすぐにご連絡いただける体制を整え、いつでも安心してご利用いただけます。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <h3>多職種チーム連携</h3>
+        <p>看護師・理学療法士・作業療法士が連携し、専門性の高いトータルケアを提供します。</p>
+      </div>
+    </div>
+  </div>
 </section>
+
+<!-- CTA -->
+<section id="contact">
+  <div class="cta">
+    <h2>まずはお気軽にご相談ください</h2>
+    <p>ご利用に関するご質問・ご相談は無料です。お電話またはフォームよりお問い合わせください。</p>
+    <a href="tel:000-0000-0000" class="btn">📞 000-0000-0000</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <h4>すみれ訪問看護ステーション</h4>
+      <p>住み慣れた我が家で安心の暮らしを。<br>神戸市を中心に訪問看護・リハビリサービスを提供しています。</p>
+    </div>
+    <div>
+      <h4>所在地</h4>
+      <p>〒000-0000<br>兵庫県神戸市〇〇区〇〇<br>1-2-3</p>
+    </div>
+    <div>
+      <h4>営業時間</h4>
+      <p>月〜金 9:00〜18:00<br>緊急時 24時間対応</p>
+    </div>
+  </div>
+  <div class="copyright">
+    &copy; 2026 すみれ訪問看護ステーション
+  </div>
+</footer>
 
 </body>
+</html>
